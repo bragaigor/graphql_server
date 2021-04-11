@@ -12,17 +12,24 @@ enum Episode {
     Jedi,
 }
 
+// TODO: Extend this implementation and create a Database struct where we can include and delete
+//    elements from it. 
+
+// Context: The context type is a feature in Juniper that lets field resolvers access global data,
+// 		most commonly database connections or authentication information.
+
 #[derive(GraphQLObject)]
-#[graphql(description = "A humanoid creature in the Star Wars universe")]
+// #[graphql(description = "A humanoid creature in the Star Wars universe")] this is the equivalent of
+/// A humanoid creature in the Star Wars universe
 struct Human {
     id: String,
+	/// Human's name
     name: String,
     appears_in: Vec<Episode>,
-    home_planet: String,
+    home_planet: String, // This field is converted to camelCase name homePlanet
 }
 
-// There is also a custom derive for mapping GraphQL input objects.
-
+// TODO: What is this? This is probably used to insert new elements into the Database
 #[derive(GraphQLInputObject)]
 #[graphql(description = "A humanoid creature in the Star Wars universe")]
 struct NewHuman {
