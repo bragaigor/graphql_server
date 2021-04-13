@@ -4,6 +4,7 @@ use juniper::{
   GraphQLInputObject, GraphQLObject, RootNode,
   EmptyMutation,
 };
+// use std::collections::HashMap;
 
 #[derive(GraphQLEnum)]
 enum Powers {
@@ -18,6 +19,9 @@ enum Powers {
 	Wind
 }
 
+// struct Database {
+// 	super_heroes: HashMap<String, SuperHero>
+// }
 // TODO: Extend this implementation and create a Database struct where we can include and delete
 //    elements from it. 
 
@@ -33,6 +37,14 @@ struct SuperHero {
     name: String,
     super_powers: Vec<Powers>,
     home_planet: String, // This field is converted to camelCase name homePlanet
+}
+
+#[derive(GraphQLObject)]
+struct Weapon {
+	id: String,
+	name: String,
+	power_level: i32,
+	magicals: Vec<Powers>
 }
 
 // TODO: What is this? This is probably used to insert new elements into the Database
@@ -69,6 +81,17 @@ impl Query {
         home_planet: String::from("Earth")};
     // Return the result.
     return Ok(super_hero);
+  }
+
+  fn random_weapon() -> FieldResult<Weapon> {
+	let my_vec: Vec<Powers> = vec![Powers::Fire, Powers::Wind];
+	let weapon = Weapon {
+		id: String::from("6666666"), 
+        name: String::from("Excalibur"), 
+        power_level: 989, 
+        magicals: my_vec
+		};
+	return Ok(weapon);
   }
 }
 
