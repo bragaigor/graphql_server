@@ -6,10 +6,16 @@ use juniper::{
 };
 
 #[derive(GraphQLEnum)]
-enum Episode {
-    NewHope,
-    Empire,
-    Jedi,
+enum Powers {
+    Fly,
+    SuperStrength,
+    Invisibility,
+	Magic,
+	Telepaty,
+	Luck,
+	Fire,
+	Ice,
+	Wind
 }
 
 // TODO: Extend this implementation and create a Database struct where we can include and delete
@@ -21,20 +27,20 @@ enum Episode {
 #[derive(GraphQLObject)]
 // #[graphql(description = "A humanoid creature in the Star Wars universe")] this is the equivalent of
 /// A humanoid creature in the Star Wars universe
-struct Human {
+struct SuperHero {
     id: String,
-	/// Human's name
+	/// SuperHero's name
     name: String,
-    appears_in: Vec<Episode>,
+    super_powers: Vec<Powers>,
     home_planet: String, // This field is converted to camelCase name homePlanet
 }
 
 // TODO: What is this? This is probably used to insert new elements into the Database
 #[derive(GraphQLInputObject)]
 #[graphql(description = "A humanoid creature in the Star Wars universe")]
-struct NewHuman {
+struct NewSuperHero {
     name: String,
-    appears_in: Vec<Episode>,
+    super_powers: Vec<Powers>,
     home_planet: String,
 }
 
@@ -53,16 +59,16 @@ impl Query {
   // To gain access to the context, we specify a argument
   // that is a reference to the Context type.
   // Juniper automatically injects the correct context here.
-  fn human(_id: String) -> FieldResult<Human> {
-    println!("human resolver was called with id: {}!!", _id);
-    let my_vec: Vec<Episode> = vec![Episode::Empire, Episode::Jedi];
-    let human = Human{
+  fn super_hero(_id: String) -> FieldResult<SuperHero> {
+    println!("SuperHero resolver was called with id: {}!!", _id);
+    let my_vec: Vec<Powers> = vec![Powers::SuperStrength, Powers::Invisibility];
+    let super_hero = SuperHero{
         id: String::from("11228899"), 
         name: String::from("Igor Braga"), 
-        appears_in: my_vec, 
-        home_planet: String::from("Janut")};
+        super_powers: my_vec, 
+        home_planet: String::from("Earth")};
     // Return the result.
-    return Ok(human);
+    return Ok(super_hero);
   }
 }
 
