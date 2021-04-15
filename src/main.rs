@@ -24,6 +24,7 @@ fn schema() -> graphql_schema::Schema {
 }
 
 fn main() {
+    graphql_schema::simple_test();
     let mut user_input = String::new();
     println!("Choose which server you'd like to run:\n[1] warp\n[2] Rocket");
     std::io::stdin().read_line(&mut user_input).expect("Failed");
